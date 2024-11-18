@@ -65,7 +65,7 @@ function Register() {
     setSuccessMessage("");
 
     try {
-      const response = await axios.post("http://localhost:5000/register", payload, {
+      const response = await axios.post("https://godigital-8n82.onrender.com/register", payload, {
         headers: {
           "Content-Type": "application/json",
         },
