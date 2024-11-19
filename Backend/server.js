@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
-
+const Customer = require('./models/CustomerForm'); 
+const Event = require('./models/Eventform');
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -66,32 +67,14 @@ app.post("/register", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
-
+//Login Route
 app.post('/login', async (req, res) => {
-  const { email, password, captcha } = req.body;
-
-  // // Verify CAPTCHA
-  // if (!captcha) {
-  //   return res.status(400).json({ error: "Please complete the CAPTCHA." });
-  // }
-
+  const { email, password} = req.body;
   try {
-    // Verify reCAPTCHA with Google
-    // const response = await axios.post(
-    //   `https://www.google.com/recaptcha/api/siteverify?secret=${RECAPTCHA_SECRET_KEY}&response=${captcha}`
-    // );
-
-    // if (!response.data.success) {
-    //   return res.status(400).json({ error: "Captcha verification failed." });
-    // }
-
-
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ error: "Invalid email or password." });
     }
-
-
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ error: "Invalid email or password." });
@@ -104,6 +87,119 @@ app.post('/login', async (req, res) => {
   } catch (err) {
     console.error("Error during login:", err);
     res.status(500).json({ error: "Server error", details: err.message });
+  }
+});
+
+// Route for adding a new customer
+app.post('/api/customers', async (req, res) => {
+  try {
+    const {
+      firstName,
+      middleName,
+      lastName,
+      address,
+      taluka,
+      city,
+      district,
+      state,
+      country,
+      pincode,
+      mobile,
+      email,
+      cast,
+      subcast,
+      gotra,
+      religion,
+      nationality,
+      referredBy,
+      employed,
+      employmentType,
+      businessDetails
+    } = req.body;
+    console.log(lastName)
+
+    const newCustomer = new Customer({
+      firstName,
+      middleName,
+      lastName,
+      address,
+      taluka,
+      city,
+      district,
+      state,
+      country,
+      pincode,
+      mobile,
+      email,
+      cast,
+      subcast,
+      gotra,
+      religion,
+      nationality,
+      referredBy,
+      employed,
+      employmentType,
+      businessDetails
+    });
+
+    await newCustomer.save();
+    
+    res.status(201).json({ message: 'Customer added successfully', customer: newCustomer });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server Error' });
+  }
+});
+
+// Route for adding a new event
+app.post('/api/events', async (req, res) => {
+  try {
+    const {
+      customerName,
+      address,
+      taluka,
+      city,
+      district,
+      state,
+      country,
+      pincode,
+      mobile,
+      email,
+      eventDate,
+      eventVenue,
+      eventDescription,
+      eventAmount,
+      advanceAmount,
+      remainingAmount,
+      eventHoldersName
+    } = req.body;
+
+    // If you want to reference an existing customer, ensure customerName is an ObjectId
+    const newEvent = new Event({
+      customerName,
+      address,
+      taluka,
+      city,
+      district,
+      state,
+      country,
+      pincode,
+      mobile,
+      email,
+      eventDate,
+      eventVenue,
+      eventDescription,
+      eventAmount,
+      advanceAmount,
+      remainingAmount,
+      eventHoldersName
+    });
+
+    await newEvent.save();
+    res.status(201).json({ message: 'Event added successfully', event: newEvent });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server Error' });
   }
 });
 
