@@ -1,15 +1,26 @@
-import React from 'react';
-import { StyleSheet, View, ActivityIndicator } from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, View, ActivityIndicator, StatusBar } from 'react-native';
 import { WebView } from 'react-native-webview';
 
 const VidyutrenzWebView = () => {
+  useEffect(() => {
+    // Show the status bar when this screen is active
+    StatusBar.setHidden(false); 
+    StatusBar.setBarStyle('dark-content'); // Optionally set the status bar content style
+
+    return () => {
+      // Optionally reset the status bar when leaving the screen
+      StatusBar.setHidden(false); 
+    };
+  }, []);
+
   return (
     <View style={styles.container}>
-      {/* WebView to embed the website */}
+     
       <WebView
-        source={{ uri: 'https://go-digital-ten.vercel.app/' }} // Website URL
+        source={{ uri: 'https://go-digital-ten.vercel.app/' }} 
         style={styles.webview}
-        startInLoadingState={true} // Show a loading spinner while the page loads
+        startInLoadingState={true} 
         renderLoading={() => (
           <ActivityIndicator
             style={styles.loader}

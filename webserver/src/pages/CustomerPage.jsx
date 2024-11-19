@@ -29,7 +29,6 @@ const CustomerList = () => {
     try {
       const response = await axios.get(`https://godigital-8n82.onrender.com/customers/${id}`);
       setSelectedCustomer(response.data);
-      console.log(response.data)
       setShowPopup(true);
     } catch (error) {
       console.error('Error fetching customer details:', error);

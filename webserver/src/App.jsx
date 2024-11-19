@@ -7,6 +7,7 @@ import Events from './pages/RegisteredEvents.jsx'
 import Individual from './pages/IndividualEvents.jsx'
 import Profile from './pages/Profile.jsx'
 import AboutUs from './pages/AboutUs.jsx'
+import SearchCustomer from './pages/SearchCustomer.jsx'
 function App() {
   return (
     <BrowserRouter>
@@ -21,6 +22,9 @@ function App() {
           <Route path="/all-events-list" element={<Individual />} />
           <Route path="/profile" element={<Profile/>} />
           <Route path="/about" element={<AboutUs/>} />
+          <Route path = "/customers/:id" element={<SearchCustomer />}/>
+          <Route path="/customer/:id" element={<SearchCustomer />} />
+
            
           
         </Routes>

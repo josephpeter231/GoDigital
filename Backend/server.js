@@ -249,6 +249,19 @@ app.get('/api/events/:id', async (req, res) => {
   }
 });
 
+app.get('/navcustomers', async (req, res) => {
+  try {
+    const { search } = req.query;
+    const customers = await Customer.find({
+      fullName: { $regex: search, $options: 'i' } // Case-insensitive search
+    }).limit(10); // Optional: Limit results to 10
+
+    res.status(200).json(customers);
+  } catch (error) {
+    console.error('Error fetching customers:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
 
 // Connect to MongoDB and start the server
 mongoose.connect('mongodb+srv://josephpeterjece2021:AJ9Hg6xTtQBUCoGr@cluster1.xaacunv.mongodb.net/GoDigital?retryWrites=true&w=majority')
