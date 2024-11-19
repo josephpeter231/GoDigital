@@ -16,17 +16,17 @@ function Login() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-//   const handleCaptchaChange = (value) => {
-//     setCaptchaValue(value);
-//   };
+  const handleCaptchaChange = (value) => {
+    setCaptchaValue(value);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // if (!captchaValue) {
-    //   setErrorMessage("Please complete the CAPTCHA.");
-    //   return;
-    // }
+    if (!captchaValue) {
+      setErrorMessage("Please complete the CAPTCHA.");
+      return;
+    }
 
     const payload = { ...formData, captcha: captchaValue };
 
@@ -76,10 +76,10 @@ function Login() {
           />
         </div>
         <div className="mb-4">
-          {/* <ReCAPTCHA
-            sitekey='6LeI3oIqAAAAAAIWbqpBHehkrQt2OR2AhDYVPl9U' // Replace with your reCAPTCHA site key
+          <ReCAPTCHA
+            sitekey='6Lf4ToMqAAAAACv0twXQ-s-Ti-3O35R4wjkpRbYr' // Replace with your reCAPTCHA site key
             onChange={handleCaptchaChange}
-          /> */}
+          />
         </div>
         <button
           type="submit"
