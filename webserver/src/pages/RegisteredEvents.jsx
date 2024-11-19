@@ -7,14 +7,13 @@ import { useNavigate } from 'react-router-dom';
 
 const App = () => {
   const [activeForm, setActiveForm] = useState(null);
-  const navigate = useNavigate(); // Using navigate hook for redirection
-
+  const navigate = useNavigate(); 
   const handleOpenForm = (formType) => setActiveForm(formType);
   const handleCloseForm = () => setActiveForm(null);
 
-  // Function to handle redirection
+  
   const handleRedirect = (path) => {
-    navigate(path); // Redirects to the passed path
+    navigate(path); 
   };
 
   return (

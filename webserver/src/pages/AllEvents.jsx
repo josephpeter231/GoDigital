@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import AddEventForm from './components/AddEventForm';  // Assuming you have a form to add events
-import AddCustomerForm from './components/AddCustomerForm';  // If needed
+import AddEventForm from './components/AddEventForm'; 
+import AddCustomerForm from './components/AddCustomerForm';  
 
 const EventList = () => {
   const [events, setEvents] = useState([]);
@@ -90,13 +90,13 @@ const EventList = () => {
                 <strong>Event Description:</strong> {selectedEvent.eventDescription}
               </p>
               <p className="mb-2">
-                <strong>Event Amount:</strong> ${selectedEvent.eventAmount}
+                <strong>Event Amount:</strong> ₹{selectedEvent.eventAmount}
               </p>
               <p className="mb-2">
-                <strong>Advance Amount:</strong> ${selectedEvent.advanceAmount || 0}
+                <strong>Advance Amount:</strong> ₹{selectedEvent.advanceAmount || 0}
               </p>
               <p className="mb-2">
-                <strong>Remaining Amount:</strong> ${selectedEvent.remainingAmount}
+                <strong>Remaining Amount:</strong> ₹{selectedEvent.remainingAmount}
               </p>
             </div>
             <button

@@ -5,6 +5,8 @@ import Entry from './pages/Entry.jsx'
 import CustomerDetails from './pages/CustomerPage.jsx'
 import Events from './pages/RegisteredEvents.jsx'
 import Individual from './pages/IndividualEvents.jsx'
+import Profile from './pages/Profile.jsx'
+import AboutUs from './pages/AboutUs.jsx'
 function App() {
   return (
     <BrowserRouter>
@@ -17,6 +19,8 @@ function App() {
           <Route path="/event-list" element={<Events />} />
           <Route path="/registered-events" element={<Individual />} />
           <Route path="/all-events-list" element={<Individual />} />
+          <Route path="/profile" element={<Profile/>} />
+          <Route path="/about" element={<AboutUs/>} />
            
           
         </Routes>

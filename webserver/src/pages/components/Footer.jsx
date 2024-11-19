@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 const Footer = ({ onOpenForm }) => {
   const navigate = useNavigate();
   return (
-    <footer className="bg-gray-100 p-4 flex justify-around items-center shadow-inner fixed bottom-0 w-full">
+    <footer className="bg-gray-100 p-2 flex justify-around items-center shadow-inner fixed bottom-0 w-full">
       {/* Home Button */}
       <button
         onClick={() => navigate('/entry')} // Redirect to home or handle navigation
@@ -15,7 +15,7 @@ const Footer = ({ onOpenForm }) => {
           viewBox="0 0 24 24"
           strokeWidth={2}
           stroke="currentColor"
-          className="w-8 h-8 mb-1"
+          className="w-6 h-8 mb-1"
         >
           <path
             strokeLinecap="round"
@@ -39,7 +39,7 @@ const Footer = ({ onOpenForm }) => {
           strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="w-8 h-8 mb-1"
+          className="w-6 h-8 mb-1"
         >
           <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
           <circle cx="12" cy="7" r="4" />
@@ -59,7 +59,7 @@ const Footer = ({ onOpenForm }) => {
           viewBox="0 0 24 24"
           strokeWidth={2}
           stroke="currentColor"
-          className="w-8 h-8 mb-1"
+          className="w-6 h-8 mb-1"
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
         </svg>
