@@ -38,7 +38,6 @@ function Login() {
 
     try {
       const response = await axios.post("https://godigital-8n82.onrender.com/login", payload, {
-        // const response = await axios.post("http://localhost:5000/login", payload, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -46,8 +45,7 @@ function Login() {
 
       if (response.status === 200) {
         setSuccessMessage("Login successful!");
-        localStorage.setItem('userdetails',JSON.stringify(response.data.user));
-        // console.log(JSON.parse(localStorage.getItem('userdetails')));
+        localStorage.setItem('userdetails', JSON.stringify(response.data.user));
         navigate('/entry');
       }
     } catch (error) {
@@ -88,7 +86,7 @@ function Login() {
             <ReCAPTCHA
               sitekey="6LfhT4MqAAAAAMTbx4Gohpss0AUD5vCyUBBlb1E0" // Replace with your reCAPTCHA site key
               onChange={handleCaptchaChange}
-              className="mx-auto w-full max-w-xs" // Add this for responsiveness
+              className="mx-auto w-full max-w-xs"
             />
           </div>
 
@@ -103,6 +101,22 @@ function Login() {
           {errorMessage && <p className="mt-4 text-sm text-red-500">{errorMessage}</p>}
           {successMessage && <p className="mt-4 text-sm text-green-500">{successMessage}</p>}
         </form>
+
+        <div className="mt-6 text-center">
+          <button
+            onClick={() => navigate('/register')}
+            className="text-orange-700 hover:underline font-medium"
+          >
+            Register
+          </button>
+          <span className="mx-2 text-gray-500">|</span>
+          <button
+            onClick={() => navigate('/forgot-password')}
+            className="text-orange-700 hover:underline font-medium"
+          >
+            Forgot Password?
+          </button>
+        </div>
       </div>
     </div>
   );

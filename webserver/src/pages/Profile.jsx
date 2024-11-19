@@ -23,22 +23,19 @@ const UserProfile = () => {
 
   return (
     <div className="flex flex-col min-h-screen w-full  bg-gray-50">
-      {/* Navbar (Fixed at the top) */}
+    
       <Navbar />
 
-      {/* Main Content - Scrollable */}
       <main className="flex-grow overflow-y-auto p-6">
         <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-3xl mx-auto">
-          {/* Profile Header */}
           <div className="flex justify-center mb-8">
             <img
-              src={user.profilePicture || '/path/to/default-profile-pic.jpg'} // Fallback to a default image
+              src={user.profilePicture || '/path/to/default-profile-pic.jpg'} 
               alt="Profile"
               className="w-32 h-32 rounded-full object-cover shadow-md border-4 border-orange-500"
             />
           </div>
 
-          {/* User Info */}
           <div className="text-center mb-6">
             <h1 className="text-3xl font-semibold text-gray-800">{user.fullName}</h1>
             <p className="text-sm text-gray-600">{user.email}</p>
@@ -62,7 +59,7 @@ const UserProfile = () => {
             </div>
           </div>
 
-          {/* Logout Button */}
+          
           <div className="mt-8 text-center">
             <button
               onClick={() => {

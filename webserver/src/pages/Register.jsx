@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom"; // Import for navigation
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -31,11 +32,11 @@ function Register() {
     setUploading(true);
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", "godigital"); 
+    formData.append("upload_preset", "godigital");
 
     try {
       const response = await axios.post(
-        "https://api.cloudinary.com/v1_1/dl3ztdpxc/image/upload", 
+        "https://api.cloudinary.com/v1_1/dl3ztdpxc/image/upload",
         formData
       );
       setProfilePicture(response.data.secure_url);
@@ -65,13 +66,15 @@ function Register() {
     setSuccessMessage("");
 
     try {
-      const response = await axios.post("https://godigital-8n82.onrender.com/register", payload, {
-        // const response = await axios.post("http://localhost:5000/register", payload, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-    console.log(payload)
+      const response = await axios.post(
+        "https://godigital-8n82.onrender.com/register",
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (response.status === 200) {
         setSuccessMessage("Registration successful!");
@@ -85,121 +88,165 @@ function Register() {
   };
 
   return (
-    <div className="w-full max-w-sm p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold text-center mb-4">Sign Up</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label className="block text-sm font-medium mb-2">Profile Picture</label>
-          <input
-            type="file"
-            accept="image/png, image/jpeg"
-            onChange={handleImageUpload}
-            className="w-full px-4 py-2 border rounded-lg"
-          />
-          {uploading && <p className="text-sm text-gray-500">Uploading...</p>}
-          {profilePicture && (
-            <img src={profilePicture} alt="Profile" className="mt-2 h-20 w-20 object-cover rounded-full" />
-          )}
-        </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium mb-2">Full Name</label>
-          <input
-            type="text"
-            name="fullName"
-            placeholder="Enter your full name"
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium mb-2">Address</label>
-          <textarea
-            name="address"
-            placeholder="Enter your address"
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
-          />
-        </div>
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <input
-            type="text"
-            name="city"
-            placeholder="City"
-            onChange={handleChange}
-            className="px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
-          />
-          <input
-            type="text"
-            name="state"
-            placeholder="State"
-            onChange={handleChange}
-            className="px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
-          />
-        </div>
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <input
-            type="text"
-            name="country"
-            placeholder="Country"
-            onChange={handleChange}
-            className="px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
-          />
-          <input 
-            type="text"
-            name="pincode"
-            placeholder="Pincode"
-            onChange={handleChange}
-            className="px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
-          />
-        </div>
-        <div className="mb-4">
-          <input
-            type="text"
-            name="mobileNumber"
-            placeholder="Mobile Number"
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
-          />
-        </div>
-        <div className="mb-4">
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
-          />
-        </div>
-        <div className="mb-4">
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
-          />
-        </div>
-        <div className="mb-4">
-          <input
-            type="password"
-            name="confirmPassword"
-            placeholder="Confirm Password"
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
-          />
-        </div>
-        <button
-          type="submit"
-          disabled={loading}
-          className={`w-full py-2 px-4 text-white rounded-lg ${
-            loading ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"
-          }`}
-        >
-          {loading ? "Submitting..." : "Sign Up"}
-        </button>
-        {errorMessage && <p className="mt-4 text-sm text-red-500">{errorMessage}</p>}
-        {successMessage && <p className="mt-4 text-sm text-green-500">{successMessage}</p>}
-      </form>
+    <div className="flex justify-center items-center min-h-screen bg-[#FFFDD0]">
+      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
+        <h2 className="text-2xl font-bold text-center mb-6 text-orange-700">Sign Up</h2>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Profile Picture */}
+          <div>
+            <label className="block text-sm font-medium mb-2 text-gray-700">
+              Profile Picture
+            </label>
+            <input
+              type="file"
+              accept="image/png, image/jpeg"
+              onChange={handleImageUpload}
+              className="block w-full text-gray-700 rounded-lg border focus:outline-none focus:ring-2 focus:ring-orange-500"
+            />
+            {uploading && <p className="text-sm text-gray-500 mt-2">Uploading...</p>}
+            {profilePicture && (
+              <img
+                src={profilePicture}
+                alt="Profile"
+                className="mt-4 h-24 w-24 mx-auto rounded-full object-cover shadow-lg"
+              />
+            )}
+          </div>
+
+          {/* Full Name */}
+          <div>
+            <input
+              type="text"
+              name="fullName"
+              placeholder="Full Name"
+              onChange={handleChange}
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              required
+            />
+          </div>
+
+          {/* Address */}
+          <div>
+            <textarea
+              name="address"
+              placeholder="Address"
+              onChange={handleChange}
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              required
+            />
+          </div>
+
+          {/* City and State */}
+          <div className="grid grid-cols-2 gap-4">
+            <input
+              type="text"
+              name="city"
+              placeholder="City"
+              onChange={handleChange}
+              className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              required
+            />
+            <input
+              type="text"
+              name="state"
+              placeholder="State"
+              onChange={handleChange}
+              className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              required
+            />
+          </div>
+
+          {/* Country and Pincode */}
+          <div className="grid grid-cols-2 gap-4">
+            <input
+              type="text"
+              name="country"
+              placeholder="Country"
+              onChange={handleChange}
+              className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              required
+            />
+            <input
+              type="text"
+              name="pincode"
+              placeholder="Pincode"
+              onChange={handleChange}
+              className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              required
+            />
+          </div>
+
+          {/* Mobile Number */}
+          <div>
+            <input
+              type="text"
+              name="mobileNumber"
+              placeholder="Mobile Number"
+              onChange={handleChange}
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              required
+            />
+          </div>
+
+          {/* Email */}
+          <div>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              onChange={handleChange}
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              required
+            />
+          </div>
+
+          {/* Password and Confirm Password */}
+          <div className="grid grid-cols-2 gap-4">
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              onChange={handleChange}
+              className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              required
+            />
+            <input
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              onChange={handleChange}
+              className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              required
+            />
+          </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            disabled={loading}
+            className={`w-full py-3 text-white rounded-lg ${
+              loading ? "bg-gray-400" : "bg-orange-700 hover:bg-orange-800"
+            }`}
+          >
+            {loading ? "Submitting..." : "Sign Up"}
+          </button>
+
+          {/* Error and Success Messages */}
+          {errorMessage && <p className="mt-4 text-sm text-red-500">{errorMessage}</p>}
+          {successMessage && <p className="mt-4 text-sm text-green-500">{successMessage}</p>}
+
+          {/* Login Option */}
+          <p className="mt-6 text-center text-sm text-gray-600">
+            Already have an account?{" "}
+            <Link
+              to="/"
+              className="text-orange-700 hover:underline font-semibold"
+            >
+              Login
+            </Link>
+          </p>
+        </form>
+      </div>
     </div>
   );
 }

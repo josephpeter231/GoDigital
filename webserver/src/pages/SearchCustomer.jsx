@@ -4,13 +4,13 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 const CustomerDetails = () => {
-  const { id } = useParams(); // Get customer ID from URL params
-  const [customer, setCustomer] = useState(null); // State to hold customer data
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error state
+  const { id } = useParams(); 
+  const [customer, setCustomer] = useState(null); 
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
-    // Fetch customer data by ID
+    
     const fetchCustomer = async () => {
       try {
         const response = await fetch(
