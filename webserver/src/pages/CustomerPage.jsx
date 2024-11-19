@@ -16,7 +16,7 @@ const CustomerList = () => {
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/customers');
+        const response = await axios.get('https://godigital-8n82.onrender.com/customers');
         setCustomers(response.data);
       } catch (error) {
         console.error('Error fetching customers:', error);
@@ -27,7 +27,7 @@ const CustomerList = () => {
 
   const handleCustomerClick = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:5000/customers/${id}`);
+      const response = await axios.get(`https://godigital-8n82.onrender.com/customers/${id}`);
       setSelectedCustomer(response.data);
       console.log(response.data)
       setShowPopup(true);

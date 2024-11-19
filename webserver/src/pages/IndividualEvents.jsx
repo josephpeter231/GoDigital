@@ -19,7 +19,7 @@ const EventList = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/events');
+        const response = await axios.get('https://godigital-8n82.onrender.com/api/events');
         setEvents(response.data);
       } catch (error) {
         console.error('Error fetching events:', error);
@@ -30,7 +30,7 @@ const EventList = () => {
 
   const handleEventClick = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/events/${id}`);
+      const response = await axios.get(`https://godigital-8n82.onrender.com/api/events/${id}`);
       setSelectedEvent(response.data);
       setShowPopup(true);
     } catch (error) {

@@ -65,7 +65,7 @@ const AddCustomerForm = ({ onClose }) => {
     try {
       setUploading(true);
       const response = await axios.post(
-        'http://localhost:5000/api/customers',
+        'https://godigital-8n82.onrender.com/api/customers',
         { ...formData, profilePicture }
       );
 
