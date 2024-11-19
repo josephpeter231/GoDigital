@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-
+import PropTypes from 'prop-types';
 const Footer = ({ onOpenForm }) => {
   const navigate = useNavigate();
   return (
@@ -68,5 +68,7 @@ const Footer = ({ onOpenForm }) => {
     </footer>
   );
 };
-
+Footer.propTypes = {
+  onOpenForm: PropTypes.func.isRequired, // onClose is a required function
+};
 export default Footer;

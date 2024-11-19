@@ -42,7 +42,7 @@ const CustomerList = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen" style={{ backgroundColor: '#FFFDD0' }}>
+    <div className="flex flex-col h-screen w-full" style={{ backgroundColor: '#FFFDD0' }}>
       <Navbar />
       <main className="flex-grow overflow-y-auto p-4">
         <h2

@@ -8,7 +8,7 @@ const Event = require('./models/Eventform');
 const app = express();
 app.use(cors());
 app.use(express.json());
-const RECAPTCHA_SECRET_KEY = '6LeI3oIqAAAAABWT6cCLymJ8HN5W8lYEJ98SIb3L';
+
 // MongoDB User Model
 const userSchema = new mongoose.Schema({
   fullName: { type: String, required: true },

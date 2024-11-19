@@ -32,7 +32,7 @@ const AddEventForm = ({ onClose }) => {
   // Submit form data
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+    // console.log('Form Data Submitted:', formData);
   
     try {
       
