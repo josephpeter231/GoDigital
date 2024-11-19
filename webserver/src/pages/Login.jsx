@@ -37,7 +37,8 @@ function Login() {
     setSuccessMessage("");
 
     try {
-      const response = await axios.post("https://godigital-8n82.onrender.com/login", payload, {
+      // const response = await axios.post("https://godigital-8n82.onrender.com/login", payload, {
+        const response = await axios.post("http://localhost:5000/login", payload, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -45,6 +46,8 @@ function Login() {
 
       if (response.status === 200) {
         setSuccessMessage("Login successful!");
+        localStorage.setItem('userdetails',JSON.stringify(response.data.user));
+        // console.log(JSON.parse(localStorage.getItem('userdetails')));
         navigate('/entry');
       }
     } catch (error) {

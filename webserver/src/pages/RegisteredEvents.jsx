@@ -23,22 +23,22 @@ const App = () => {
       <main className="flex-grow p-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div className="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <h2 className="text-xl font-semibold text-orange-700 mb-4">Show Customer Data</h2>
-            <p className="text-gray-600 mb-4">View all the customer details you have added.</p>
+            <h2 className="text-xl font-semibold text-orange-700 mb-4"> Registered events</h2>
+            <p className="text-gray-600 mb-4">View all the Registered Events.</p>
             <button
-              onClick={() => handleRedirect('/customer-data')}
+              onClick={() => handleRedirect('/registered-events')}
               className="bg-orange-700 text-white py-2 px-4 rounded-lg hover:bg-orange-800 transition-colors duration-200"
             >
               View
             </button>
           </div>
 
-          
+           
           <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <h2 className="text-xl font-semibold text-orange-700 mb-4">Show Event List</h2>
-            <p className="text-gray-600 mb-4">View all the events you have created.</p>
+            <h2 className="text-xl font-semibold text-orange-700 mb-4">Show Event History </h2>
+            <p className="text-gray-600 mb-4">View all History of Events that has been happend .</p>
             <button
-              onClick={() => handleRedirect('/event-list')} // Update with the correct route for your event list page
+              onClick={() => handleRedirect('/all-events-list')} // Update with the correct route for your event list page
               className="bg-orange-700 text-white py-2 px-4 rounded-lg hover:bg-orange-800 transition-colors duration-200"
             >
               View

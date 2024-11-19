@@ -27,6 +27,7 @@ const User = mongoose.model("User", userSchema);
 const mobileNumberRegex = /^[0-9]{10}$/;
 // Registration route
 app.post("/register", async (req, res) => {
+ 
   const { fullName, address, city, state, country, pincode, mobileNumber, email, password, confirmPassword, profilePicture } = req.body;
 
   if (password !== confirmPassword) {
@@ -59,6 +60,7 @@ app.post("/register", async (req, res) => {
     });
 
     await newUser.save();
+    console.log(newUser)
 
     const token = jwt.sign({ userId: newUser._id }, "secretKey", { expiresIn: "1h" });
     res.status(201).json({ message: "User registered successfully", token });
@@ -79,11 +81,10 @@ app.post('/login', async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ error: "Invalid email or password." });
     }
-
-
+    
     const token = jwt.sign({ userId: user._id }, 'secretKey', { expiresIn: '1h' });
-
-    res.status(200).json({ message: "Login successful", token });
+    
+    res.status(200).json({ message: "Login successful", token ,user});
   } catch (err) {
     console.error("Error during login:", err);
     res.status(500).json({ error: "Server error", details: err.message });
@@ -116,8 +117,7 @@ app.post('/api/customers', async (req, res) => {
       employmentType,
       businessDetails
     } = req.body;
-    console.log(lastName)
-
+    
     const newCustomer = new Customer({
       firstName,
       middleName,
@@ -196,12 +196,59 @@ app.post('/api/events', async (req, res) => {
     });
 
     await newEvent.save();
+    c
     res.status(201).json({ message: 'Event added successfully', event: newEvent });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server Error' });
   }
 });
+
+// Route to get all customer names
+app.get('/customers', async (req, res) => {
+  try {
+    const customers = await Customer.find({}, 'firstName middleName lastName');
+    res.status(200).json(customers);
+  } catch (error) {
+    console.error('Error fetching customer names:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Route to get details of a single customer by ID
+app.get('/customers/:id', async (req, res) => {
+  try {
+    const customer = await Customer.findById(req.params.id);
+    if (!customer) {
+      return res.status(404).json({ error: 'Customer not found' });
+    }
+    res.status(200).json(customer);
+  } catch (error) {
+    console.error('Error fetching customer details:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+//toget events
+app.get('/api/events', async (req, res) => {
+  try {
+    const events = await Event.find();
+    res.status(200).json(events);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch events.' });
+  }
+});
+app.get('/api/events/:id', async (req, res) => {
+  try {
+    const event = await Event.findById(req.params.id);
+    if (!event) {
+      return res.status(404).json({ error: 'Event not found.' });
+    }
+    res.status(200).json(event);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch event.' });
+  }
+});
+
 
 // Connect to MongoDB and start the server
 mongoose.connect('mongodb+srv://josephpeterjece2021:AJ9Hg6xTtQBUCoGr@cluster1.xaacunv.mongodb.net/GoDigital?retryWrites=true&w=majority')

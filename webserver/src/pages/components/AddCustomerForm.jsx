@@ -24,27 +24,61 @@ const AddCustomerForm = ({ onClose }) => {
     employed: '',
     employmentType: '',
     businessDescription: '',
+    dateOfBirth: '',
   });
-
+  const [profilePicture, setProfilePicture] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
+ 
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploading(true);
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "godigital"); 
+
+    try {
+      const response = await axios.post(
+        "https://api.cloudinary.com/v1_1/dl3ztdpxc/image/upload", 
+        formData
+      );
+      setProfilePicture(response.data.secure_url);
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      setErrorMessage("Failed to upload profile picture.");
+    } finally {
+      setUploading(false);
+    }
+  };
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Customer Data:', formData);
-  
     try {
-      const response = await axios.post('https://godigital-8n82.onrender.com/api/customers', formData);
-      
-      // Handle the response from the server
+      setUploading(true);
+      const response = await axios.post(
+        'http://localhost:5000/api/customers',
+        { ...formData, profilePicture }
+      );
+
       console.log('Response from server:', response.data);
-      onClose(); // Close the form after successful submission
+      setUploading(false);
+      onClose();
     } catch (error) {
+      alert(errorMessage)
       console.error('Error submitting customer data:', error);
+      setUploading(false);
     }
   };
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
@@ -96,6 +130,7 @@ const AddCustomerForm = ({ onClose }) => {
             { label: 'Country', name: 'country' },
             { label: 'Pincode', name: 'pincode' },
             { label: 'Mobile', name: 'mobile' },
+            { label:'Email',name:'email'},
           ].map((field) => (
             <div key={field.name}>
               <label className="block text-sm font-medium text-gray-700">{field.label}</label>
@@ -162,6 +197,26 @@ const AddCustomerForm = ({ onClose }) => {
               <option value="retired">Retired</option>
             </select>
           </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Date of Birth</label>
+            <input
+              type="date"
+              name="dateOfBirth"
+              value={formData.dateOfBirth}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border rounded-md"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Profile Image</label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="w-full px-4 py-2 border rounded-md"
+            />
+          </div>
+
 
           {/* Business Description (Optional) */}
           {formData.employmentType === 'business' && (
@@ -185,14 +240,16 @@ const AddCustomerForm = ({ onClose }) => {
               type="button"
               onClick={onClose}
               className="bg-gray-300 text-sm font-medium px-4 py-2 rounded-md hover:bg-gray-400"
+              disabled={uploading}
             >
               Close
             </button>
             <button
               type="submit"
               className="bg-orange-700 text-white text-sm font-medium px-4 py-2 rounded-md hover:bg-orange-800"
+              disabled={uploading}
             >
-              Submit
+              {uploading ? 'Submitting...' : 'Submit'}
             </button>
           </div>
         </form>
@@ -201,7 +258,7 @@ const AddCustomerForm = ({ onClose }) => {
   );
 };
 AddCustomerForm.propTypes = {
-  onClose: PropTypes.func.isRequired, // onClose is a required function
+  onClose: PropTypes.func.isRequired, 
 };
 
 export default AddCustomerForm;

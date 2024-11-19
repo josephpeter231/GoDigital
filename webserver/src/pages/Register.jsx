@@ -31,11 +31,11 @@ function Register() {
     setUploading(true);
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", "godigital"); // Replace with your Cloudinary upload preset
+    formData.append("upload_preset", "godigital"); 
 
     try {
       const response = await axios.post(
-        "https://api.cloudinary.com/v1_1/dl3ztdpxc/image/upload", // Replace with your Cloudinary URL
+        "https://api.cloudinary.com/v1_1/dl3ztdpxc/image/upload", 
         formData
       );
       setProfilePicture(response.data.secure_url);
@@ -65,7 +65,8 @@ function Register() {
     setSuccessMessage("");
 
     try {
-      const response = await axios.post("https://godigital-8n82.onrender.com/register", payload, {
+      // const response = await axios.post("https://godigital-8n82.onrender.com/register", payload, {
+        const response = await axios.post("http://localhost:5000/register", payload, {
         headers: {
           "Content-Type": "application/json",
         },

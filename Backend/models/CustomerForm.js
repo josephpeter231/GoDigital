@@ -14,7 +14,7 @@ const customerSchema = new Schema(
     country: { type: String, required: true },
     pincode: { type: String, required: true },
     mobile: { type: String, required: true },
-    email: { type: String, required: false },
+    email: { type: String, required: true },
     cast: { type: String, required: true },
     subcast: { type: String, required: false },
     gotra: { type: String, required: false },
@@ -22,21 +22,23 @@ const customerSchema = new Schema(
     nationality: { type: String, required: true },
     referredBy: { type: String, required: false },
     employed: { type: Boolean, required: true },
-    employmentType: { 
-      type: String, 
-      enum: ['student', 'business', 'self-employed', 'retired'], 
-      required: true 
+    employmentType: {
+      type: String,
+      enum: ['student', 'business', 'self-employed', 'retired'],
+      required: true,
     },
-    businessDetails: { 
+    businessDetails: {
       name: { type: String, required: false },
       address: { type: String, required: false },
       type: { type: String, required: false },
-      contactNumber: { type: String, required: false }
-    }
+      contactNumber: { type: String, required: false },
+    },
+    dateOfBirth: { type: Date, required: false }, 
+    profileImageUrl: { type: String, required: false }, 
   },
   { timestamps: true }
 );
-
+ 
 const Customer = mongoose.model('Customer', customerSchema);
 
 module.exports = Customer;
